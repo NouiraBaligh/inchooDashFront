@@ -12,6 +12,8 @@ import Products from "./pages/Products";
 import Orders from "./pages/Orders";
 import PromoCodes from "./pages/PromoCodes";
 import Login from "./pages/Login";
+import Messages from "./pages/Messages";
+import Reviews from "./pages/Reviews";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -82,6 +84,17 @@ function App() {
       element: <Layout />,
       children: [{ path: "", element: <Orders /> }],
     },
+    {
+      path: "/messages",
+      element: <Layout />,
+      children: [{ path: "", element: <Messages /> }],
+    },
+    {
+      path: "/reviews",
+      element: <Layout />,
+      children: [{ path: "", element: <Reviews /> }],
+    },
+
     {
       path: "/promocodes",
       element: <Layout />,

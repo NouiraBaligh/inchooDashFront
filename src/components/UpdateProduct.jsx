@@ -38,7 +38,9 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
           setDescription(product.description);
           setPrice(product.price);
           setInStock(product.inStock);
-          setImg(product.img);
+          setImg(
+            `http://localhost:3000/products_images/${product.img.split("/")[2]}`
+          );
           setCategory(product.category); // Set category state
         } else {
           console.error("Failed to fetch product:", product.message);
@@ -57,11 +59,11 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
     let validationErrors = {};
 
     // Validate fields
-    if (!title) validationErrors.title = "Tiitre est requis";
-    if (!description) validationErrors.description = "Description est requis.";
-    if (!price) validationErrors.price = "Prix est requis.";
-    if (!imgFile && !img) validationErrors.imgFile = "Image est requis.";
-    if (!category) validationErrors.category = "Catégorie est requis.";
+    if (!title) validationErrors.title = "Title is required.";
+    if (!description) validationErrors.description = "Description is required.";
+    if (!price) validationErrors.price = "Price is required.";
+    if (!imgFile && !img) validationErrors.imgFile = "Image is required.";
+    if (!category) validationErrors.category = "Category is required.";
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -104,7 +106,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
       <div className="bg-white w-[400px] p-6 shadow-lg">
-        <h2 className="text-lg font-semibold mb-4">Modifier Produit</h2>
+        <h2 className="text-lg font-semibold mb-4">Update Product</h2>
         <button
           onClick={onClose}
           className="absolute m-4 p-1 bg-gray-100 border border-gray-300 rounded-full -top-1 -right-1"
@@ -122,10 +124,36 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
             />
           </svg>
         </button>
-
+        <div className="mb-2 flex justify-center items-center">
+          <label htmlFor="file-input" className="cursor-pointer">
+            {img ? (
+              <img
+                src={img}
+                alt="Product Preview"
+                className="w-40 h-50 object-cover rounded-full"
+              />
+            ) : (
+              <img
+                src="/input-pictures.png"
+                alt="Upload"
+                className="w-40 h-50 object-cover rounded-full"
+              />
+            )}
+          </label>
+          <input
+            id="file-input"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="hidden"
+          />
+          {errors.imgFile && (
+            <p className="text-red-500 text-sm m-1">{errors.imgFile}</p>
+          )}
+        </div>
         <input
           type="text"
-          placeholder="Titre"
+          placeholder="Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="mb-2 w-full p-2 border"
@@ -148,7 +176,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
 
         <input
           type="number"
-          placeholder="Prix"
+          placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="mb-2 w-full p-2 border"
@@ -156,24 +184,24 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
         {errors.price && (
           <p className="text-red-500 text-sm mt-1">{errors.price}</p>
         )}
-        {/* Category dropdown */}
+
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           className="mb-2 w-full p-2 border"
         >
-          <option value="">Sélectionnez une catégorie</option>
-          <option value="Produits peau">Produits peau</option>
-          <option value="Produits visage">Produits visage</option>
-          <option value="Produits intimes">Produits intimes</option>
-          <option value="Produits capillaires">Produits capillaires</option>
-          <option value="Produits de rasage">Produits de rasage</option>
-          <option value="Produits d'hygiène et de bien être">
-            Produits d'hygiène et de bien être
+          <option value="">Select a category</option>
+          <option value="Skin Products">Skin Products</option>
+          <option value="Face Products">Face Products</option>
+          <option value="Intimate Products">Intimate Products</option>
+          <option value="Hair Products">Hair Products</option>
+          <option value="Shaving Products">Shaving Products</option>
+          <option value="Hygiene and Wellness Products">
+            Hygiene and Wellness Products
           </option>
           <option value="Bakhour">Bakhour</option>
           <option value="Packs">Packs</option>
-          <option value="Coffrets">Coffrets</option>
+          <option value="Gift Boxes">Gift Boxes</option>
         </select>
         {errors.category && (
           <p className="text-red-500 text-sm mt-1">{errors.category}</p>
@@ -186,17 +214,17 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
             onChange={(e) => setInStock(e.target.checked)}
             className="mr-2"
           />
-          En Stock
+          In Stock
         </label>
 
         <button onClick={updateProduct} className="bg-blue-500 text-white p-2">
-          Modifier
+          Update
         </button>
         <button
           onClick={onClose}
           className="border border-red-500 bg-red-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-red-600 focus:outline-none focus:shadow-outline"
         >
-          Annuler
+          Cancel
         </button>
       </div>
     </div>
