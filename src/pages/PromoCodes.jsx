@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import Swal from "sweetalert2";
 import CreatePromocode from "../components/CreatePromocode";
 import UpdatePromocode from "../components/UpdatePromocode";
+import { baseURL } from "../config/config";
 
 const PromoCodes = () => {
   const [data, setData] = useState([]);
@@ -34,13 +35,10 @@ const PromoCodes = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/promocode/${promocodeId}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${baseURL}/promocode/${promocodeId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
 
         if (response.ok) {
           Swal.fire("Supprimé !", "Votre promocode a été supprimé.", "success");
@@ -67,7 +65,7 @@ const PromoCodes = () => {
   const fetchPromocodes = async () => {
     try {
       setLoading(true); // Start loading
-      const response = await fetch("http://localhost:8000/api/v1/promocode", {
+      const response = await fetch(`${baseURL}/promocode`, {
         credentials: "include",
       });
       const promocodes = await response.json();
@@ -85,7 +83,7 @@ const PromoCodes = () => {
 
   const handleCreatePromocode = async ({ title, pourcentage }) => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/promocode", {
+      const response = await fetch(`${baseURL}/promocode`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title, pourcentage }),

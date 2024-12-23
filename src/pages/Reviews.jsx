@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { baseURL } from "../config/config";
 
 const Reviews = () => {
   const [data, setData] = useState([]); // State for order data
@@ -15,9 +16,7 @@ const Reviews = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true); // Start loading
-        const messagesResponse = await fetch(
-          "http://localhost:8000/api/v1/products/rates"
-        );
+        const messagesResponse = await fetch(`${baseURL}/products/rates`);
         const messages = await messagesResponse.json();
         setData(messages);
       } catch (error) {
@@ -42,13 +41,10 @@ const Reviews = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/products/rates/${reviewId}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${baseURL}/products/rates/${reviewId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
 
         if (response.ok) {
           Swal.fire("Supprimé !", "Votre avis a été supprimé.", "success");

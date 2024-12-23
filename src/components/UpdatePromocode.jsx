@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { baseURL } from "../config/config";
 
 const UpdatePromocode = ({ promocodeId, onClose, fetchPromocodes }) => {
   const [title, setTitle] = useState("");
@@ -11,9 +12,7 @@ const UpdatePromocode = ({ promocodeId, onClose, fetchPromocodes }) => {
   useEffect(() => {
     const fetchOnePromocode = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/promocode/${promocodeId}`
-        );
+        const response = await fetch(`${baseURL}/promocode/${promocodeId}`);
         const promocode = await response.json();
 
         if (response.ok) {
@@ -51,14 +50,11 @@ const UpdatePromocode = ({ promocodeId, onClose, fetchPromocodes }) => {
 
     try {
       // Make the API request to update the promocode
-      const response = await fetch(
-        `http://localhost:8000/api/v1/promocode/${promocodeId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ title, pourcentage }),
-        }
-      );
+      const response = await fetch(`${baseURL}/promocode/${promocodeId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, pourcentage }),
+      });
 
       const result = await response.json();
 

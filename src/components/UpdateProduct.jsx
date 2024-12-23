@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { baseURL, URLImg } from "../config/config";
 
 function UpdateProduct({ onClose, productId, fetchProducts }) {
   const [title, setTitle] = useState("");
@@ -28,9 +29,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
   useEffect(() => {
     const fetchOneProduct = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/products/${productId}`
-        );
+        const response = await fetch(`${baseURL}/products/${productId}`);
         const product = await response.json();
 
         if (response.ok) {
@@ -38,9 +37,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
           setDescription(product.description);
           setPrice(product.price);
           setInStock(product.inStock);
-          setImg(
-            `http://localhost:3000/products_images/${product.img.split("/")[2]}`
-          );
+          setImg(`${URLImg}/products_images/${product.img.split("/")[2]}`);
           setCategory(product.category); // Set category state
         } else {
           console.error("Failed to fetch product:", product.message);
@@ -82,13 +79,10 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
     }
 
     try {
-      const response = await fetch(
-        `http://localhost:8000/api/v1/products/${productId}`,
-        {
-          method: "PUT",
-          body: formData,
-        }
-      );
+      const response = await fetch(`${baseURL}/products/${productId}`, {
+        method: "PUT",
+        body: formData,
+      });
 
       if (response.ok) {
         const updatedProduct = await response.json();

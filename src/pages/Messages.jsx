@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { baseURL } from "../config/config";
 
 const Messages = () => {
   const [data, setData] = useState([]); // State for message data
@@ -14,9 +15,7 @@ const Messages = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true); // Start loading
-        const messagesResponse = await fetch(
-          "http://localhost:8000/api/v1/users/messages"
-        );
+        const messagesResponse = await fetch(`${baseURL}/users/messages`);
         const messages = await messagesResponse.json();
         setData(messages);
       } catch (error) {
@@ -41,13 +40,10 @@ const Messages = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/users/messages/${msgId}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${baseURL}/users/messages/${msgId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
 
         if (response.ok) {
           Swal.fire("Supprimé !", "Votre message a été supprimé.", "success");
@@ -55,14 +51,14 @@ const Messages = () => {
         } else {
           Swal.fire(
             "Error",
-            "There was an issue deleting the message.",
+            "There was an issue deleting the message  .",
             "error"
           );
         }
       } catch (error) {
         Swal.fire(
           "Error",
-          "An error occurred while deleting the message.",
+          "An error occurred while deleting the message .",
           "error"
         );
       }

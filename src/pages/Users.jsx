@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { DataGrid } from "@mui/x-data-grid";
 import Swal from "sweetalert2";
+import { baseURL } from "../config/config";
 
 const Users = () => {
   const [data, setData] = useState([]); // State for user data
@@ -19,12 +20,9 @@ const Users = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/users/${userId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`${baseURL}/users/${userId}`, {
+          method: "DELETE",
+        });
 
         if (response.ok) {
           Swal.fire("Deleted!", "Your user has been deleted.", "success");
@@ -63,7 +61,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/v1/users");
+        const response = await fetch(`${baseURL}/users`);
         const users = await response.json();
         setData(users);
       } catch (error) {

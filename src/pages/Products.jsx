@@ -4,6 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import CreateProduct from "../components/CreateProduct";
 import Swal from "sweetalert2";
 import UpdateProduct from "../components/UpdateProduct";
+import { baseURL, URLImg } from "../config/config";
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -36,13 +37,10 @@ const Products = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/products/${productId}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${baseURL}/products/${productId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
 
         if (response.ok) {
           Swal.fire("Deleted!", "Your product has been deleted.", "success");
@@ -65,7 +63,7 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true); // Start loading
-      const response = await fetch("http://localhost:8000/api/v1/products", {
+      const response = await fetch(`${baseURL}/products`, {
         credentials: "include",
       });
       const products = await response.json();
@@ -108,7 +106,7 @@ const Products = () => {
 
   const handleCreateProduct = async (formData) => {
     try {
-      const response = await fetch("http://localhost:8000/api/v1/products", {
+      const response = await fetch(`${baseURL}/products`, {
         method: "POST",
         body: formData,
         credentials: "include",
@@ -218,7 +216,7 @@ const Products = () => {
                           <div className="flex items-center">
                             <img
                               className="h-12 w-12 rounded-full object-cover mr-2"
-                              src={`http://localhost:3000/products_images/${
+                              src={`${URLImg}/products_images/${
                                 product.img.split("/")[2]
                               }`}
                               alt=""

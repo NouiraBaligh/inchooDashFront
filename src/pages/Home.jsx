@@ -10,6 +10,7 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
+import { baseURL } from "../config/config";
 
 ChartJS.register(
   Title,
@@ -35,9 +36,9 @@ const Home = () => {
       setLoading(true);
       try {
         const [ordersRes, productsRes, reviewsRes] = await Promise.all([
-          fetch("http://localhost:8000/api/v1/orders"),
-          fetch("http://localhost:8000/api/v1/products"),
-          fetch("http://localhost:8000/api/v1/products/rates"),
+          fetch(`${baseURL}/orders`),
+          fetch(`${baseURL}/products`),
+          fetch(`${baseURL}/products/rates`),
         ]);
 
         const [ordersData, productsData, reviewsData] = await Promise.all([

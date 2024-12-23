@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { baseURL } from "../config/config";
 
 const Orders = () => {
   const [data, setData] = useState([]); // State for order data
@@ -19,9 +20,7 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         setLoading(true); // Start loading
-        const ordersResponse = await fetch(
-          "http://localhost:8000/api/v1/orders"
-        );
+        const ordersResponse = await fetch(`${baseURL}/orders`);
         const orders = await ordersResponse.json();
         setData(orders);
       } catch (error) {
@@ -33,12 +32,9 @@ const Orders = () => {
 
     const fetchProducts = async () => {
       try {
-        const productsResponse = await fetch(
-          "http://localhost:8000/api/v1/products",
-          {
-            credentials: "include",
-          }
-        );
+        const productsResponse = await fetch(`${baseURL}/products`, {
+          credentials: "include",
+        });
         const products = await productsResponse.json();
         setProductsList(products);
       } catch (error) {
@@ -68,13 +64,10 @@ const Orders = () => {
 
     if (result.isConfirmed) {
       try {
-        const response = await fetch(
-          `http://localhost:8000/api/v1/orders/${orderId}`,
-          {
-            method: "DELETE",
-            credentials: "include",
-          }
-        );
+        const response = await fetch(`${baseURL}/orders/${orderId}`, {
+          method: "DELETE",
+          credentials: "include",
+        });
 
         if (response.ok) {
           Swal.fire("Supprimé !", "Votre commande a été supprimée.", "success");
