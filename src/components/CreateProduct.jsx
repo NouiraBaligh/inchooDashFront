@@ -164,17 +164,15 @@ const CreateProduct = ({ show, onClose, onCreate }) => {
           className="mb-2 w-full p-2 border"
         >
           <option value="">Sélectionnez une catégorie</option>
-          <option value="Produits peau">Produits peau</option>
-          <option value="Produits visage">Produits visage</option>
-          <option value="Produits intimes">Produits intimes</option>
-          <option value="Produits capillaires">Produits capillaires</option>
-          <option value="Produits de rasage">Produits de rasage</option>
-          <option value="Produits d'hygiène et de bien être">
-            Produits d'hygiène et de bien être
+          <option value="SOINS DE PEAU">SOINS DE PEAU</option>
+          <option value="SOINS DE VISAGE">SOINS DE VISAGE</option>
+          <option value="SOINS CAPILLAIRES">SOINS CAPILLAIRES</option>
+          <option value="PARFUMS MAISON">PARFUMS MAISON</option>
+          <option value="PARFUMS CHEVEUX ET CORPS">
+            PARFUMS CHEVEUX ET CORPS
           </option>
-          <option value="Bakhour">Bakhour</option>
-          <option value="Coffrets">Coffrets</option>
-          <option value="Packs">Packs</option>
+          <option value="PACKS">PACKS</option>
+          <option value="ACCESOIRES">ACCESOIRES</option>
         </select>
         {errors.category && (
           <p className="text-red-500 text-sm m-1">{errors.category}</p>

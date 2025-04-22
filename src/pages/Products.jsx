@@ -139,7 +139,7 @@ const Products = () => {
               onClick={() => setShow(true)}
               className="bg-[#1e1e1e] px-4 py-2 font-semibold text-white rounded hover:bg-gray-800"
             >
-              Create
+              Créer
             </button>
           </div>
           {/* Filters */}

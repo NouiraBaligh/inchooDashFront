@@ -100,7 +100,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black bg-opacity-50">
       <div className="bg-white w-[400px] p-6 shadow-lg">
-        <h2 className="text-lg font-semibold mb-4">Update Product</h2>
+        <h2 className="text-lg font-semibold mb-4">Modifier Produit</h2>
         <button
           onClick={onClose}
           className="absolute m-4 p-1 bg-gray-100 border border-gray-300 rounded-full -top-1 -right-1"
@@ -147,7 +147,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
         </div>
         <input
           type="text"
-          placeholder="Title"
+          placeholder="Titre"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="mb-2 w-full p-2 border"
@@ -170,7 +170,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
 
         <input
           type="number"
-          placeholder="Price"
+          placeholder="Prix"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
           className="mb-2 w-full p-2 border"
@@ -184,18 +184,15 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
           onChange={(e) => setCategory(e.target.value)}
           className="mb-2 w-full p-2 border"
         >
-          <option value="">Select a category</option>
-          <option value="Skin Products">Skin Products</option>
-          <option value="Face Products">Face Products</option>
-          <option value="Intimate Products">Intimate Products</option>
-          <option value="Hair Products">Hair Products</option>
-          <option value="Shaving Products">Shaving Products</option>
-          <option value="Hygiene and Wellness Products">
-            Hygiene and Wellness Products
+          <option value="SOINS DE PEAU">SOINS DE PEAU</option>
+          <option value="SOINS DE VISAGE">SOINS DE VISAGE</option>
+          <option value="SOINS CAPILLAIRES">SOINS CAPILLAIRES</option>
+          <option value="PARFUMS MAISON">PARFUMS MAISON</option>
+          <option value="PARFUMS CHEVEUX ET CORPS">
+            PARFUMS CHEVEUX ET CORPS
           </option>
-          <option value="Bakhour">Bakhour</option>
-          <option value="Packs">Packs</option>
-          <option value="Gift Boxes">Gift Boxes</option>
+          <option value="PACKS">PACKS</option>
+          <option value="ACCESOIRES">ACCESOIRES</option>
         </select>
         {errors.category && (
           <p className="text-red-500 text-sm mt-1">{errors.category}</p>
@@ -208,7 +205,7 @@ function UpdateProduct({ onClose, productId, fetchProducts }) {
             onChange={(e) => setInStock(e.target.checked)}
             className="mr-2"
           />
-          In Stock
+          En Stock
         </label>
 
         <button onClick={updateProduct} className="bg-blue-500 text-white p-2">
